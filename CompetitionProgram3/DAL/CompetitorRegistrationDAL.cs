@@ -32,7 +32,7 @@ namespace CompetitionProgram3.DAL
                     // Open the connection
                     conn.Open();
 
-                    string sql = "SELECT * FROM competitors";
+                    string sql = "SELECT * FROM competitors SELECT * FROM competitors ORDER BY gender, belt_rank, nogi_rank, weight, first_name, team_name";
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
                     // Execute the command
@@ -46,9 +46,10 @@ namespace CompetitionProgram3.DAL
                         {
                             FirstName = Convert.ToString(reader["first_name"]),
                             LastName = Convert.ToString(reader["last_name"]),
+                            TeamName = Convert.ToString(reader["team_name"]),
                             BirthDate = Convert.ToDateTime(reader["birth_date"]),
                             Gender = Convert.ToString(reader["gender"]),
-                            Weight = Convert.ToInt32(reader["weight"]),
+                            Weight = Convert.ToString(reader["weight"]),
                             BeltRank = Convert.ToString(reader["belt_rank"]),
                             NogiRank = Convert.ToString(reader["nogi_rank"]),
                             RegistrationDate = Convert.ToDateTime(reader["register_date"])

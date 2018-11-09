@@ -22,20 +22,48 @@
                 <td><input asp-for="TeamName" /></td>
             </tr>
             <tr>
-                <td><label asp-for="BirthDate">Enter your Birthdate(YYYY-MM-DD):</label></td>
+                <td><label asp-for="BirthDate">Enter your Birthdate:</label></td>
                 <td><input asp-for="BirthDate" /></td>
             </tr>
             <tr>
-                <td><label asp-for="TeamName">Enter your Team Name:</label></td>
-                <td><input asp-for="TeamName" /></td>
+                <td>
+                    <label asp-for="Weight">Select Weight Class:</label>
+                </td>
+                <td>
+                    <select asp-for="Weight" asp-items="CompetitorsModel.WeightChoice"></select>
+                </td>
             </tr>
             <tr>
-                <label asp-for="Gender">Select Gender:</label>
-                <select asp-for="Gender" asp-items="CompetitorsModel.GenderChoice"></select>
+                <td>
+                    <label asp-for="Gender">Select Gender:</label>
+                </td>
+                <td>
+                    <select asp-for="Gender" asp-items="CompetitorsModel.GenderChoice"></select>
+                </td>
             </tr>
             <tr>
-                <td><label asp-for="TeamName">Enter your Team Name:</label></td>
-                <td><input asp-for="TeamName" /></td>
+                <td>
+                    <label asp-for="BeltRank">Select Belt:</label>
+                </td>
+                <td>
+                    <select asp-for="BeltRank" asp-items="CompetitorsModel.BeltRankChoice"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="NogiRank">Select Nogi Experience:</label>
+                </td>
+                <td>
+                    <select asp-for="NogiRank" asp-items="CompetitorsModel.NogiExpChoice"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="CompetitionId">Select A Competition:</label>
+                </td>
+                <td>
+                    <select asp-for="CompetitionId" asp-items="CompetitorsModel.CompetitionChoice"></select>
+                </td>
             </tr>
             <tr>
                 <td><input type="submit" value="Register" /></td>

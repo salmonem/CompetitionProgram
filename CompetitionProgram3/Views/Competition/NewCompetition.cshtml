@@ -1,0 +1,46 @@
+﻿@model CompetitionModel
+@{
+    ViewData["Title"] = "Create New Competition";
+}
+
+<h2>Create New Competition</h2>
+
+<form asp-controller="competition" asp-action="NewCompetition" method="post">
+
+    <table>
+        <tbody>
+            <tr>
+                <td><label asp-for="Name">Enter Competition Title:</label></td>
+                <td><input asp-for="Name" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="CompetitionDate">Enter Date of Competition:</label></td>
+                <td><input asp-for="CompetitionDate" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="StreetAddress">Enter Street Address</label></td>
+                <td><input asp-for="StreetAddress" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="City">Enter City:</label></td>
+                <td><input asp-for="City" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="Zipcode">Enter Zipcode:</label></td>
+                <td><input asp-for="Zipcode" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="State">Enter State:</label></td>
+                <td><input asp-for="State" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="CountryCode">Enter Country:</label></td>
+                <td><input asp-for="CountryCode" /></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Create" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+</form>

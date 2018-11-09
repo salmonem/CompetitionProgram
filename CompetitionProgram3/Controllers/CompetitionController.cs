@@ -9,21 +9,21 @@ using System.Diagnostics;
 
 namespace CompetitionProgram3.Controllers
 {
-    public class CompetitorRegistrationController : Controller
+    public class CompetitionController : Controller
     {
-        private readonly ICompetitorRegistrationDAL _dal;
+        private readonly ICompetitionDAL _dal;
 
-        public CompetitorRegistrationController()
+        public CompetitionController()
         {
-            _dal = new CompetitorRegistrationDAL(@"Data Source=.\SQLEXPRESS;Initial Catalog=CompetitorRegistration;Integrated Security=True");
+            _dal = new CompetitionDAL(@"Data Source=.\SQLEXPRESS;Initial Catalog=CompetitorRegistration;Integrated Security=True");
         }
         public IActionResult Index()
         {
             // Get all of the competitors
-            var competitors = _dal.GetAllCompetitors();
+            var competition = _dal.GetAllCompetitions();
 
             // Return the Index view
-            return View(competitors);
+            return View(competition);
         }
 
         // GET review/new
@@ -33,10 +33,10 @@ namespace CompetitionProgram3.Controllers
         /// <returns></returns>
 
         [HttpGet]
-        public IActionResult NewCompetitor()
+        public IActionResult NewCompetition()
         {
             // Return the empty view
-            return View("NewCompetitor");
+            return View("NewCompetition");
         }
 
         /// <summary>
@@ -46,20 +46,19 @@ namespace CompetitionProgram3.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult NewCompetitor(CompetitorsModel newCompetitor)
+        public IActionResult NewCompetition(CompetitionModel newCompetition)
         {
-            CompetitorsModel competitor = new CompetitorsModel();
-            competitor.FirstName = newCompetitor.FirstName;
-            competitor.LastName = newCompetitor.LastName;
-            competitor.TeamName = newCompetitor.TeamName;
-            competitor.BirthDate = newCompetitor.BirthDate;
-            competitor.Gender = newCompetitor.Gender;
-            competitor.Weight = newCompetitor.Weight;
-            competitor.BeltRank = newCompetitor.BeltRank;
-            competitor.NogiRank = newCompetitor.NogiRank;
-            competitor.RegistrationDate = DateTime.Now;
+            CompetitionModel competition = new CompetitionModel();
+            competition.Name = newCompetition.Name;
+            competition.CompetitionDate = newCompetition.CompetitionDate;
+            competition.StreetAddress = newCompetition.StreetAddress;
+            competition.City = newCompetition.City;
+            competition.Zipcode = newCompetition.Zipcode;
+            competition.State = newCompetition.State;
+            competition.CountryCode = newCompetition.CountryCode;
+            competition.CreationDate = DateTime.Now;
             // Save the Review
-            _dal.SaveCompetitor(competitor);
+            _dal.SaveCompetition(competition);
 
             // Redirect the user to Review/Index Action
             return RedirectToAction(nameof(Index));

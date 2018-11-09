@@ -1,0 +1,56 @@
+*Registration:
+
+ -name
+ -team
+ -gender
+ -bithdate
+ -weight
+ -belt rank
+ -nogi rank
+-------------
+
+*Brackets 
+divide by--
+ -name
+ -team
+ -gender
+ -bithdate
+ -weight
+ -belt rank
+ -nogi rank
+-grey out name if DQ or lost match
+-place competitors ( 1st 2nd and one 3rd)  
+-------
+
+-competitors are weighed and checked in.
+
+-figure out round robin, single elimination and double elimination
+-generate competitor placement and collect data for team points
+-competitor DQ if miss weight or noshow
+-collect points for team placement
+
+-------
+*Match screen
+-timer (shoud autofill correct time, but can alter though (before & during) and pause/start)
+-competitor names
+-competitor teams
+-points
+-advantages
+-diadvantages
+-user selects which competitor won and how (points,submission, DQ)
+-work through one or two brackets per mat at one time, 
+need to creat algorithm that can automatically determine time needed between matches for each
+competitor to get break.
+-user can select next match otherwise, then it goes to the one that was skipped.
+-user has unique login for each mat?
+-------
+*Mat schedule
+-divide by mats
+-order fights by time with competitor info in order
+-can filter to search by division, team and/or competitor
+-------
+*Medal collection screen
+-list populates as divisions are completed and displays who placed in which division
+-can select when medals have been collected for each athlete in each division
+-------
+*create a web domain for competitors to see brackets & register and allow workers to login and access appropriate pages.

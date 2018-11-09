@@ -1,0 +1,33 @@
+﻿@model IList<CompetitionModel>
+@{
+    ViewData["Title"] = "Competitions";
+}
+
+<h2>Future Competitions</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Country</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var competition in Model)
+        {
+            <tr>
+                <td>@competition.Name</td>
+                <td>@competition.CompetitionDate</td>
+                <td>@competition.City</td>
+                <td>@competition.State</td>
+                <td>@competition.CountryCode</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<a asp-controller="competition" asp-action="NewCompetition" method="get">Create New Competition</a>

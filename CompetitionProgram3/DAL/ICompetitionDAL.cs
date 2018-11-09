@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace CompetitionProgram3.DAL
 {
-    public interface ICompetitorRegistrationDAL
+    public interface ICompetitionDAL
     {
         /// <summary>
         /// Returns a list of all copmetitors
         /// </summary>
         /// <returns></returns>
-        IList<CompetitorsModel> GetAllCompetitors();
+        IList<CompetitionModel> GetAllCompetitions();
 
         /// <summary>
         /// Saves a new competitor to the system.
         /// </summary>
         /// <param name="newReview"></param>
         /// <returns></returns>
-        int SaveCompetitor(CompetitorsModel newCompetitor);
+        int SaveCompetition(CompetitionModel newCompetitor);
     }
 }
