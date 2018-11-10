@@ -13,9 +13,9 @@ namespace CompetitionProgram3.Controllers
     {
         private readonly ICompetitionDAL _dal;
 
-        public CompetitionController()
+        public CompetitionController(ICompetitionDAL dal)
         {
-            _dal = new CompetitionDAL(@"Data Source=.\SQLEXPRESS;Initial Catalog=CompetitorRegistration;Integrated Security=True");
+            _dal = dal;
         }
         public IActionResult Index()
         {
@@ -40,7 +40,7 @@ namespace CompetitionProgram3.Controllers
         }
 
         /// <summary>
-        /// Represents a save review action.
+        /// Represents a save competition action.
         /// </summary>
         /// <param name="review"></param>
         /// <returns></returns>

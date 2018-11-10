@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CompetitionProgram3.DAL;
 using CompetitionProgram3.Models;
@@ -13,9 +10,9 @@ namespace CompetitionProgram3.Controllers
     {
         private readonly ICompetitorRegistrationDAL _dal;
 
-        public CompetitorRegistrationController()
+        public CompetitorRegistrationController(ICompetitorRegistrationDAL competitorDal)
         {
-            _dal = new CompetitorRegistrationDAL(@"Data Source=.\SQLEXPRESS;Initial Catalog=CompetitorRegistration;Integrated Security=True");
+            _dal = competitorDal;
         }
         public IActionResult Index()
         {
@@ -58,6 +55,7 @@ namespace CompetitionProgram3.Controllers
             competitor.BeltRank = newCompetitor.BeltRank;
             competitor.NogiRank = newCompetitor.NogiRank;
             competitor.RegistrationDate = DateTime.Now;
+            competitor.CompetitionId = newCompetitor.CompetitionId;
             // Save the Review
             _dal.SaveCompetitor(competitor);
 

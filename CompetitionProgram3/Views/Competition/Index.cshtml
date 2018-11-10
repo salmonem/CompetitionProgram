@@ -20,7 +20,7 @@
         @foreach (var competition in Model)
         {
             <tr>
-                <td>@competition.Name</td>
+                <td><a asp-controller="competitorregistration" asp-action="Index" method="get">@competition.Name</a></td>
                 <td>@competition.CompetitionDate</td>
                 <td>@competition.City</td>
                 <td>@competition.State</td>

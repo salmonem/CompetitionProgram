@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CompetitionProgram3.Models
 {
@@ -20,6 +18,7 @@ namespace CompetitionProgram3.Models
         public string BeltRank { get; set; }
         public string NogiRank { get; set; }
         public DateTime RegistrationDate { get; set; }
+        public int CompetitionId { get; set; }
 
         public static List<SelectListItem> GenderChoice = new List<SelectListItem>()
         {
@@ -52,6 +51,12 @@ namespace CompetitionProgram3.Models
             new SelectListItem() { Text = "Beginner", Value = "Beginner" },
             new SelectListItem() { Text = "Intermediate", Value = "Indtermediate" },
             new SelectListItem() { Text = "Expert", Value = "Expert" }
+        };
+
+        public static List<SelectListItem> CompetitionChoice = new List<SelectListItem>()
+        {
+            new SelectListItem() { Text = "Columbus", Value = "1" },
+            new SelectListItem() { Text = "Cleveland", Value = "2" }
         };
 
     }

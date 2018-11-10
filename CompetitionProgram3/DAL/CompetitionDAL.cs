@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CompetitionProgram3.DAL
 {
@@ -32,7 +30,7 @@ namespace CompetitionProgram3.DAL
                     // Open the connection
                     conn.Open();
 
-                    string sql = "SELECT * FROM competitions ORDER BY date DESC";
+                    string sql = "SELECT * FROM competitions ORDER BY date ASC";
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
                     // Execute the command

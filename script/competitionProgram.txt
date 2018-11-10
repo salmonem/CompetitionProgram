@@ -1,0 +1,6 @@
+CREATE TABLE competitions_competitors (
+    competition_id integer NOT NULL,
+    competitor_id integer NOT NULL,
+    CONSTRAINT pk_competitions_competitors_competition_id_competitor_id PRIMARY KEY (competition_id, competitor_id)
+);
+

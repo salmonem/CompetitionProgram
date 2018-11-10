@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CompetitionProgram3.DAL
 {
@@ -32,7 +30,7 @@ namespace CompetitionProgram3.DAL
                     // Open the connection
                     conn.Open();
 
-                    string sql = "SELECT * FROM competitors SELECT * FROM competitors ORDER BY gender, belt_rank, nogi_rank, weight, first_name, team_name";
+                    string sql = "SELECT * FROM competitors JOIN competitions ON competitors.competition_id = competitions.competition_id ORDER BY gender, belt_rank, nogi_rank, weight, first_name, team_name";
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
                     // Execute the command
@@ -52,7 +50,8 @@ namespace CompetitionProgram3.DAL
                             Weight = Convert.ToString(reader["weight"]),
                             BeltRank = Convert.ToString(reader["belt_rank"]),
                             NogiRank = Convert.ToString(reader["nogi_rank"]),
-                            RegistrationDate = Convert.ToDateTime(reader["register_date"])
+                            RegistrationDate = Convert.ToDateTime(reader["register_date"]),
+                            CompetitionId = Convert.ToInt32(reader["competition_id"]),
                         };
 
                         output.Add(competitor);
@@ -82,7 +81,7 @@ namespace CompetitionProgram3.DAL
                 {
                     conn.Open();
 
-                    string sql = "INSERT INTO competitors VALUES (@first_name,@last_name,@team_name,@birth_date,@gender,@weight,@belt_rank,@nogi_rank,@registration_date);";
+                    string sql = "INSERT INTO competitors VALUES (@first_name,@last_name,@team_name,@birth_date,@gender,@weight,@belt_rank,@nogi_rank,@registration_date,@competition_id);";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@first_name", newCompetitor.FirstName);
                     cmd.Parameters.AddWithValue("@last_name", newCompetitor.LastName);
@@ -93,6 +92,7 @@ namespace CompetitionProgram3.DAL
                     cmd.Parameters.AddWithValue("@belt_rank", newCompetitor.BeltRank);
                     cmd.Parameters.AddWithValue("@nogi_rank", newCompetitor.NogiRank);
                     cmd.Parameters.AddWithValue("@registration_date", newCompetitor.RegistrationDate);
+                    cmd.Parameters.AddWithValue("@competition_id", newCompetitor.CompetitionId);
                     cmd.ExecuteNonQuery();
                 }
             }
