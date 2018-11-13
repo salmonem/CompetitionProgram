@@ -1,24 +1,21 @@
 ﻿using CompetitionProgram3.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CompetitionProgram3.DAL
 {
-    public interface ICompetitorRegistrationDAL
+    public interface ICompetitorDAL
     {
-        /// <summary>
+        /// <summary> 
         /// Returns a list of all copmetitors
         /// </summary>
         /// <returns></returns>
-        IList<CompetitorsModel> GetAllCompetitors();
+        IList<Competitors> GetCompetitors(int id);
 
         /// <summary>
         /// Saves a new competitor to the system.
         /// </summary>
         /// <param name="newReview"></param>
         /// <returns></returns>
-        int SaveCompetitor(CompetitorsModel newCompetitor);
+        int SaveCompetitor(Competitors newCompetitor);
     }
 }

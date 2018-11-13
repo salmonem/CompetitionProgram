@@ -18,9 +18,9 @@ namespace CompetitionProgram3.DAL
         /// Returns a list of all competitors
         /// </summary>
         /// <returns></returns>
-        public IList<CompetitionModel> GetAllCompetitions()
+        public IList<Competition> GetAllCompetitions()
         {
-            List<CompetitionModel> output = new List<CompetitionModel>();
+            List<Competition> output = new List<Competition>();
 
             try
             {
@@ -40,8 +40,9 @@ namespace CompetitionProgram3.DAL
                     while (reader.Read())
                     {
                         // Create a competitor
-                        CompetitionModel competition = new CompetitionModel
+                        Competition competition = new Competition
                         {
+                            Id = Convert.ToInt32(reader["competition_id"]),
                             Name = Convert.ToString(reader["name"]),
                             CompetitionDate = Convert.ToString(reader["date"]),
                             StreetAddress = Convert.ToString(reader["streetaddress"]),
@@ -69,7 +70,7 @@ namespace CompetitionProgram3.DAL
         /// </summary>
         /// <param name="newReview"></param>
         /// <returns></returns>
-        public int SaveCompetition(CompetitionModel newCompetition)
+        public int SaveCompetition(Competition newCompetition)
         {
             int saveCompetition = 0;
 

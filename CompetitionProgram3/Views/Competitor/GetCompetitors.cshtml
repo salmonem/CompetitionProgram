@@ -1,0 +1,35 @@
+﻿@model DisplayCompetitorsViewModel
+@{
+    ViewData["Title"] = "Registered Competitors";
+}
+
+<h2>Registered Competitors</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Team</th>
+            <th>Gender</th>
+            <th>Weight Class</th>
+            <th>Belt Rank</th>
+            <th>NoGi Rank</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var competitor in Model.Competitors)
+        {
+            <tr>
+                <td>@competitor.FirstName @competitor.LastName</td>
+                <td>@competitor.TeamName</td>
+                <td>@competitor.Gender</td>
+                <td>@competitor.Weight</td>
+                <td>@competitor.BeltRank</td>
+                <td>@competitor.NogiRank</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<a asp-controller="competitor" asp-action="NewCompetitor" method="get">Register To Compete</a>

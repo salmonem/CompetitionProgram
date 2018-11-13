@@ -1,11 +1,12 @@
-﻿@model CompetitorsModel 
-@{
+﻿
+@model Competitors
+@{ 
     ViewData["Title"] = "New Competitor Registration";
 }
 
 <h2>New Competitor Registration</h2>
 
-<form asp-controller="competitorregistration" asp-action="NewCompetitor" method="post">
+<form asp-controller="competitor" asp-action="NewCompetitor" method="post">
 
     <table>
         <tbody>
@@ -30,7 +31,7 @@
                     <label asp-for="Weight">Select Weight Class:</label>
                 </td>
                 <td>
-                    <select asp-for="Weight" asp-items="CompetitorsModel.WeightChoice"></select>
+                    <select asp-for="Weight" asp-items="Competitors.WeightChoice"></select>
                 </td>
             </tr>
             <tr>
@@ -38,7 +39,7 @@
                     <label asp-for="Gender">Select Gender:</label>
                 </td>
                 <td>
-                    <select asp-for="Gender" asp-items="CompetitorsModel.GenderChoice"></select>
+                    <select asp-for="Gender" asp-items="Competitors.GenderChoice"></select>
                 </td>
             </tr>
             <tr>
@@ -46,7 +47,7 @@
                     <label asp-for="BeltRank">Select Belt:</label>
                 </td>
                 <td>
-                    <select asp-for="BeltRank" asp-items="CompetitorsModel.BeltRankChoice"></select>
+                    <select asp-for="BeltRank" asp-items="Competitors.BeltRankChoice"></select>
                 </td>
             </tr>
             <tr>
@@ -54,15 +55,16 @@
                     <label asp-for="NogiRank">Select Nogi Experience:</label>
                 </td>
                 <td>
-                    <select asp-for="NogiRank" asp-items="CompetitorsModel.NogiExpChoice"></select>
+                    <select asp-for="NogiRank" asp-items="Competitors.NogiExpChoice"></select>
                 </td>
             </tr>
+
             <tr>
                 <td>
-                    <label asp-for="CompetitionId">Select A Competition:</label>
+                    <label asp-for="id = @Model.Id">Select A Competition:</label>
                 </td>
                 <td>
-                    <select asp-for="CompetitionId" asp-items="CompetitorsModel.CompetitionChoice"></select>
+                    <select asp-for="id = @Model.Id" asp-items="Competitors.CompetitionChoice"></select>
                 </td>
             </tr>
             <tr>

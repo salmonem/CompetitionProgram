@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CompetitionProgram3.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -32,6 +33,8 @@ namespace CompetitionProgram3
             });
 
 
+            services.AddScoped<ICompetitionDAL>(x => new CompetitionDAL(Configuration.GetConnectionString("Default")));
+            services.AddScoped<ICompetitorDAL>(x => new CompetitorDAL(Configuration.GetConnectionString("Default")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

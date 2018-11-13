@@ -5,8 +5,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CompetitionProgram3.Models
 {
-    public class CompetitorsModel
+    public class Competitors
     {
+        [Key]
+        public int Id { get; set; }
+        public string Name { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string TeamName { get; set; }
@@ -18,7 +21,6 @@ namespace CompetitionProgram3.Models
         public string BeltRank { get; set; }
         public string NogiRank { get; set; }
         public DateTime RegistrationDate { get; set; }
-        public int CompetitionId { get; set; }
 
         public static List<SelectListItem> GenderChoice = new List<SelectListItem>()
         {
@@ -59,5 +61,9 @@ namespace CompetitionProgram3.Models
             new SelectListItem() { Text = "Cleveland", Value = "2" }
         };
 
+        //do this in the controller to generate a list from the table
+        //ViewBag.planetList = CompetitionChoice; return View(); 
+        //put this in the view to pull from the above list ^^^
+        //ViewData["Title"] = "Alien Weight"; List<SelectListItem> planetList = ViewBag.planetList as List<SelectListItem>; 
     }
 }

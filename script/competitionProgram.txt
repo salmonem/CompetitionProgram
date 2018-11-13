@@ -4,3 +4,34 @@ CREATE TABLE competitions_competitors (
     CONSTRAINT pk_competitions_competitors_competition_id_competitor_id PRIMARY KEY (competition_id, competitor_id)
 );
 
+/*USE TO CROSS JOIN TO COMPETITIONS_COMPETITORS*/
+/*HAVE TO DELETE CONTENTS THEN RUN INSERT*/
+DROP TABLE competitions_competitors;
+
+CREATE TABLE competitions_competitors (
+    competition_id integer NOT NULL,
+    competitor_id integer NOT NULL,
+    CONSTRAINT pk_competitions_competitors_competition_id_competitor_id PRIMARY KEY (competition_id, competitor_id)
+);
+
+INSERT INTO competitions_competitors (competition_id, competitor_id)
+SELECT  competitions.competition_id AS competition_id,
+        competitors.competitor_id AS competitor_id
+FROM competitions CROSS JOIN competitors 
+
+/* used to change DB Name*/
+USE master;  
+GO  
+ALTER DATABASE CompetitorRegistration SET SINGLE_USER WITH ROLLBACK IMMEDIATE
+GO
+ALTER DATABASE CompetitorRegistration MODIFY NAME = CompetitionProgram ;
+GO  
+ALTER DATABASE CompetitionProgram SET MULTI_USER
+GO
+
+
+select * from competitions_competitors cc
+JOIN competitions a
+on a.competition_id = cc.competition_id
+join competitors b
+on b.competitor_id = cc.competitor_id

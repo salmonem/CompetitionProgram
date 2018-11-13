@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CompetitionProgram3.DAL;
 using CompetitionProgram3.Models;
@@ -17,13 +15,15 @@ namespace CompetitionProgram3.Controllers
         {
             _dal = dal;
         }
-        public IActionResult Index()
+
+        public IActionResult Index(DisplayCompetitionsViewModel model)
         {
             // Get all of the competitors
-            var competition = _dal.GetAllCompetitions();
+            IList<Competition> competitions = _dal.GetAllCompetitions();
 
+            model.Competitions = competitions;
             // Return the Index view
-            return View(competition);
+            return View(model);
         }
 
         // GET review/new
@@ -36,7 +36,7 @@ namespace CompetitionProgram3.Controllers
         public IActionResult NewCompetition()
         {
             // Return the empty view
-            return View("NewCompetition");
+            return View();
         }
 
         /// <summary>
@@ -46,9 +46,9 @@ namespace CompetitionProgram3.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult NewCompetition(CompetitionModel newCompetition)
+        public IActionResult NewCompetition(Competition newCompetition)
         {
-            CompetitionModel competition = new CompetitionModel();
+            Competition competition = new Competition();
             competition.Name = newCompetition.Name;
             competition.CompetitionDate = newCompetition.CompetitionDate;
             competition.StreetAddress = newCompetition.StreetAddress;

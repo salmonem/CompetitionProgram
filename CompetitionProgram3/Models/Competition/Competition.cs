@@ -1,15 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CompetitionProgram3.Models
 {
-    public class CompetitionModel
+    public class Competition
     {
-        //public int CompetitionId { get; set; }
+        //[Key]
+        public int Id { get; set; }
         public string Name { get; set; }
         [DataType(DataType.Date)]
         public string CompetitionDate { get; set; }

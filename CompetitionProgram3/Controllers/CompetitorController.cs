@@ -3,24 +3,36 @@ using Microsoft.AspNetCore.Mvc;
 using CompetitionProgram3.DAL;
 using CompetitionProgram3.Models;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace CompetitionProgram3.Controllers
 {
-    public class CompetitorRegistrationController : Controller
+    public class CompetitorController : Controller
     {
-        private readonly ICompetitorRegistrationDAL _dal;
+        private readonly ICompetitorDAL _dal;
 
-        public CompetitorRegistrationController(ICompetitorRegistrationDAL competitorDal)
+        public CompetitorController(ICompetitorDAL competitorDal)
         {
             _dal = competitorDal;
         }
-        public IActionResult Index()
+        public IActionResult Index(DisplayCompetitorsViewModel model, int id)
         {
             // Get all of the competitors
-            var competitors = _dal.GetAllCompetitors();
+            IList<Competitors> competitors = _dal.GetCompetitors(id);
 
+            model.Competitors = competitors;
             // Return the Index view
-            return View(competitors);
+            return View(model);
+        }
+
+        public IActionResult GetCompetitors(DisplayCompetitorsViewModel model, int id)
+        {
+            // Get all of the competitors
+            IList<Competitors> competitors = _dal.GetCompetitors(id);
+
+            model.Competitors = competitors;
+            // Return the Index view
+            return View(model);
         }
 
         // GET review/new
@@ -33,7 +45,7 @@ namespace CompetitionProgram3.Controllers
         public IActionResult NewCompetitor()
         {
             // Return the empty view
-            return View("NewCompetitor");
+            return View();
         }
 
         /// <summary>
@@ -43,9 +55,9 @@ namespace CompetitionProgram3.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult NewCompetitor(CompetitorsModel newCompetitor)
+        public IActionResult NewCompetitor(Competitors newCompetitor)
         {
-            CompetitorsModel competitor = new CompetitorsModel();
+            Competitors competitor = new Competitors();
             competitor.FirstName = newCompetitor.FirstName;
             competitor.LastName = newCompetitor.LastName;
             competitor.TeamName = newCompetitor.TeamName;
@@ -55,7 +67,7 @@ namespace CompetitionProgram3.Controllers
             competitor.BeltRank = newCompetitor.BeltRank;
             competitor.NogiRank = newCompetitor.NogiRank;
             competitor.RegistrationDate = DateTime.Now;
-            competitor.CompetitionId = newCompetitor.CompetitionId;
+            competitor.Id = newCompetitor.Id;
             // Save the Review
             _dal.SaveCompetitor(competitor);
 

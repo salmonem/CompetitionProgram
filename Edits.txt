@@ -1,15 +1,17 @@
-﻿using CompetitionProgram3.Models;
+Old competitor dal
+-----------------------------------------------------------
+using CompetitionProgram3.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace CompetitionProgram3.DAL
 {
-    public class CompetitorRegistrationDAL : ICompetitorRegistrationDAL
+    public class CompetitorDAL : ICompetitorDAL
     {
         private readonly string connectionString;
 
-        public CompetitorRegistrationDAL(string connectionString)
+        public CompetitorDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
@@ -18,9 +20,9 @@ namespace CompetitionProgram3.DAL
         /// Returns a list of all competitors
         /// </summary>
         /// <returns></returns>
-        public IList<CompetitorsModel> GetAllCompetitors()
+        public IList<Competitors> GetAllCompetitors()
         {
-            List<CompetitorsModel> output = new List<CompetitorsModel>();
+            List<Competitors> output = new List<Competitors>();
 
             try
             {
@@ -30,7 +32,7 @@ namespace CompetitionProgram3.DAL
                     // Open the connection
                     conn.Open();
 
-                    string sql = "SELECT * FROM competitors JOIN competitions ON competitors.competition_id = competitions.competition_id ORDER BY gender, belt_rank, nogi_rank, weight, first_name, team_name";
+                    string sql = "SELECT * FROM competitors ORDER BY gender, belt_rank, nogi_rank, weight, first_name, team_name";
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
                     // Execute the command
@@ -40,7 +42,7 @@ namespace CompetitionProgram3.DAL
                     while (reader.Read())
                     {
                         // Create a competitor
-                        CompetitorsModel competitor = new CompetitorsModel
+                        Competitors competitor = new Competitors
                         {
                             FirstName = Convert.ToString(reader["first_name"]),
                             LastName = Convert.ToString(reader["last_name"]),
@@ -50,8 +52,7 @@ namespace CompetitionProgram3.DAL
                             Weight = Convert.ToString(reader["weight"]),
                             BeltRank = Convert.ToString(reader["belt_rank"]),
                             NogiRank = Convert.ToString(reader["nogi_rank"]),
-                            RegistrationDate = Convert.ToDateTime(reader["register_date"]),
-                            CompetitionId = Convert.ToInt32(reader["competition_id"]),
+                            RegistrationDate = Convert.ToDateTime(reader["register_date"])
                         };
 
                         output.Add(competitor);
@@ -71,7 +72,7 @@ namespace CompetitionProgram3.DAL
         /// </summary>
         /// <param name="newReview"></param>
         /// <returns></returns>
-        public int SaveCompetitor(CompetitorsModel newCompetitor)
+        public int SaveCompetitor(Competitors newCompetitor)
         {
             int saveCompetitor = 0;
 
@@ -81,7 +82,7 @@ namespace CompetitionProgram3.DAL
                 {
                     conn.Open();
 
-                    string sql = "INSERT INTO competitors VALUES (@first_name,@last_name,@team_name,@birth_date,@gender,@weight,@belt_rank,@nogi_rank,@registration_date,@competition_id);";
+                    string sql = "INSERT INTO competitors VALUES (@first_name,@last_name,@team_name,@birth_date,@gender,@weight,@belt_rank,@nogi_rank,@registration_date);";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@first_name", newCompetitor.FirstName);
                     cmd.Parameters.AddWithValue("@last_name", newCompetitor.LastName);
@@ -92,7 +93,6 @@ namespace CompetitionProgram3.DAL
                     cmd.Parameters.AddWithValue("@belt_rank", newCompetitor.BeltRank);
                     cmd.Parameters.AddWithValue("@nogi_rank", newCompetitor.NogiRank);
                     cmd.Parameters.AddWithValue("@registration_date", newCompetitor.RegistrationDate);
-                    cmd.Parameters.AddWithValue("@competition_id", newCompetitor.CompetitionId);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -104,3 +104,47 @@ namespace CompetitionProgram3.DAL
         }
     }
 }
+-------------------------------------------
+old icompetitor dal
+
+namespace CompetitionProgram3.DAL
+{
+    public interface ICompetitorDAL
+    {
+        /// <summary> 
+        /// Returns a list of all copmetitors
+        /// </summary>
+        /// <returns></returns>
+        IList<Competitors> GetAllCompetitors(int id);
+
+        /// <summary>
+        /// Saves a new competitor to the system.
+        /// </summary>
+        /// <param name="newReview"></param>
+        /// <returns></returns>
+        int SaveCompetitor(Competitors newCompetitor);
+    }
+}
+-----------------------------------------------------------
+/*change competitor querystring*/
+
+"INSERT INTO competitors VALUES (@first_name,@last_name,@team_name,@birth_date,@gender," +
+                                    "@weight,@belt_rank,@nogi_rank,@registration_date)" +
+                                    "SELECT * from competitions_competitors INNER JOIN competitors" +
+                                    "on competitors.competitor_id = competitions_competitors.competitor_id" +
+                                    "WHERE competitions_competitors.competition_id = @competitionid; "
+-----------------------------------------------------------------
+/*change competitor querystring*/
+
+
+                    string sql = "BEGIN TRANSACTION" +
+                                " DECLARE @competitionid int;" +
+                                "INSERT INTO competitor a " +
+                                "(first_name, last_name, team_name, birth_date, " +
+                                "gender, weight, belt_rank, nogi_rank, register_date)" +
+                                "VALUES(@firstname, @lastname, @teamname, @birthdate," +
+                                "@gender, @weight, @belt_rank, @nogi_rank, @registerdate)" +
+                                "JOIN competitions_competitors cc" +
+                                "ON a.competitor_id = cc.competitor_id" +
+                                "JOIN competition b ON cc.competition_id = b.competition_id;" +
+                                "SELECT @competitionid = scope_identity();COMMIT; ";
