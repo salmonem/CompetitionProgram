@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace CompetitionProgram3.DAL
 {
@@ -12,6 +13,11 @@ namespace CompetitionProgram3.DAL
         public CompetitionDAL(string connectionString)
         {
             this.connectionString = connectionString;
+        }
+
+        public Competition GetCompetition(int id)
+        {
+            return GetAllCompetitions().FirstOrDefault(c => c.Id == id);
         }
 
         /// <summary>

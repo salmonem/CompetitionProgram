@@ -20,7 +20,7 @@
         @foreach (var competition in Model.Competitions)
         {
             <tr>
-                <td><big></big>@Html.ActionLink(competition.Name, "Index","Competitor", new { id = competition.Id }, null)</td>
+                <td><big></big>@Html.ActionLink(competition.Name, "Detail","Competition", new { id = competition.Id }, null)</td>
                     <td>@competition.CompetitionDate</td>
                     <td>@competition.City</td>
                     <td>@competition.State</td>
