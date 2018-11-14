@@ -72,8 +72,24 @@ namespace CompetitionProgram3.DAL
                 {
                     conn.Open();
 
-                    string sql = "INSERT INTO competitors VALUES (@first_name,@last_name,@team_name," +
-                                 "@birth_date,@gender, @weight,@belt_rank,@nogi_rank,@register_date)";
+                    string sql = "BEGIN " +
+                                 "INSERT INTO competitors VALUES (@first_name,@last_name,@team_name," +
+                                 "@birth_date,@gender, @weight,@belt_rank,@nogi_rank,@register_date) " +
+                                 //"END " +
+                                 //"BEGIN " +
+                                 "SELECT competitor_id = scope_identity();" +
+                                 "INSERT INTO competitions_competitors (competition_id,competitor_id) " +
+                                 "VALUES(@competition_id, (SELECT competitor_id FROM competitors c WHERE c.first_name = '@first_name')) " +
+                                 "END;";
+
+                    //string sql = "BEGIN" +
+                    //            " DECLARE @competitionid int;" +
+                    //            "INSERT INTO competitors VALUES (@first_name,@last_name,@team_name," +
+                    //             "@birth_date,@gender, @weight,@belt_rank,@nogi_rank,@register_date) " +
+                    //            "JOIN competitions_competitors cc" +
+                    //            "ON a.competitor_id = cc.competitor_id " +
+                    //            "JOIN competition b ON cc.competition_id = b.competition_id;" +
+                    //            "SELECT @competitionid = scope_identity();COMMIT; ";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
@@ -86,8 +102,8 @@ namespace CompetitionProgram3.DAL
                     cmd.Parameters.AddWithValue("@belt_rank", newCompetitor.BeltRank);
                     cmd.Parameters.AddWithValue("@nogi_rank", newCompetitor.NogiRank);
                     cmd.Parameters.AddWithValue("@register_date", newCompetitor.RegistrationDate);
-                    //cmd.Parameters.AddWithValue("@competitionid", id);
-                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@competition_id", id);
+                    cmd.ExecuteScalar();
                 }
             }
             catch (SqlException ex)
