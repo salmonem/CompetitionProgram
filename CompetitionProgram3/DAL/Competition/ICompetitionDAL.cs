@@ -8,6 +8,8 @@ namespace CompetitionProgram3.DAL
 {
     public interface ICompetitionDAL
     {
+
+        Competition GetCompetition(int id);
         /// <summary>
         /// Returns a list of all copmetitors
         /// </summary>

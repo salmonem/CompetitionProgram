@@ -21,10 +21,10 @@ namespace CompetitionProgram3.DAL
 
             try
             {
-                // Create a new connection object
+
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    // Open the connection
+
                     conn.Open();
 
                     string sql = @"SELECT * 
@@ -35,16 +35,13 @@ namespace CompetitionProgram3.DAL
                                     ORDER BY gender, belt_rank, nogi_rank, weight, first_name, team_name";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@competition_id", id);
-                    // Execute the command
+
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    // Loop through each row
                     while (reader.Read())
                     {
-                        // Create a competitor
                         Competitors competitor = new Competitors
                         {
-                            //Id = Convert.ToInt32(reader["competition_id"]),
                             FirstName = Convert.ToString(reader["first_name"]),
                             LastName = Convert.ToString(reader["last_name"]),
                             TeamName = Convert.ToString(reader["team_name"]),
@@ -65,7 +62,7 @@ namespace CompetitionProgram3.DAL
 
             return output;
         }
-        public int SaveCompetitor(Competitors newCompetitor)
+        public int SaveCompetitor(Competitors newCompetitor, int id)
         {
             int saveCompetitor = 0;
 
@@ -75,28 +72,38 @@ namespace CompetitionProgram3.DAL
                 {
                     conn.Open();
 
-                    string sql = " DECLARE @competitionid int;" +
-                                   "INSERT INTO competitors (first_name, last_name, team_name, birth_date," +
-                                    "gender, weight, belt_rank, nogi_rank, register_date) " +
-                                    "SELECT @firstname, @lastname, @teamname, @birthdate, " +
-                                    "@gender, @weight, @beltrank, @nogirank, @registerdate " +
-                                    "FROM competitors a " +
-                                    "JOIN competitions_competitors cc ON a.competitor_id = cc.competitor_id " +
-                                    "JOIN competitions b ON cc.competition_id = b.competition_id;" +
-                                    "SELECT @competitionid = scope_identity();";
+                    string sql = "BEGIN " +
+                                 "INSERT INTO competitors VALUES (@first_name,@last_name,@team_name," +
+                                 "@birth_date,@gender, @weight,@belt_rank,@nogi_rank,@register_date) " +
+                                 //"END " +
+                                 //"BEGIN " +
+                                 "SELECT competitor_id = scope_identity();" +
+                                 "INSERT INTO competitions_competitors (competition_id,competitor_id) " +
+                                 "VALUES(@competition_id, (SELECT competitor_id FROM competitors c WHERE c.first_name = '@first_name')) " +
+                                 "END;";
+
+                    //string sql = "BEGIN" +
+                    //            " DECLARE @competitionid int;" +
+                    //            "INSERT INTO competitors VALUES (@first_name,@last_name,@team_name," +
+                    //             "@birth_date,@gender, @weight,@belt_rank,@nogi_rank,@register_date) " +
+                    //            "JOIN competitions_competitors cc" +
+                    //            "ON a.competitor_id = cc.competitor_id " +
+                    //            "JOIN competition b ON cc.competition_id = b.competition_id;" +
+                    //            "SELECT @competitionid = scope_identity();COMMIT; ";
+
                     SqlCommand cmd = new SqlCommand(sql, conn);
 
-                    cmd.Parameters.AddWithValue("@firstname", newCompetitor.FirstName);
-                    cmd.Parameters.AddWithValue("@lastname", newCompetitor.LastName);
-                    cmd.Parameters.AddWithValue("@teamname", newCompetitor.TeamName);
-                    cmd.Parameters.AddWithValue("@birthdate", newCompetitor.BirthDate);
+                    cmd.Parameters.AddWithValue("@first_name", newCompetitor.FirstName);
+                    cmd.Parameters.AddWithValue("@last_name", newCompetitor.LastName);
+                    cmd.Parameters.AddWithValue("@team_name", newCompetitor.TeamName);
+                    cmd.Parameters.AddWithValue("@birth_date", newCompetitor.BirthDate);
                     cmd.Parameters.AddWithValue("@gender", newCompetitor.Gender);
                     cmd.Parameters.AddWithValue("@weight", newCompetitor.Weight);
-                    cmd.Parameters.AddWithValue("@beltrank", newCompetitor.BeltRank);
-                    cmd.Parameters.AddWithValue("@nogirank", newCompetitor.NogiRank);
-                    cmd.Parameters.AddWithValue("@registerdate", newCompetitor.RegistrationDate);
-                    //cmd.Parameters.AddWithValue("@competitionid", newCompetitor.Id);
-                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@belt_rank", newCompetitor.BeltRank);
+                    cmd.Parameters.AddWithValue("@nogi_rank", newCompetitor.NogiRank);
+                    cmd.Parameters.AddWithValue("@register_date", newCompetitor.RegistrationDate);
+                    cmd.Parameters.AddWithValue("@competition_id", id);
+                    cmd.ExecuteScalar();
                 }
             }
             catch (SqlException ex)

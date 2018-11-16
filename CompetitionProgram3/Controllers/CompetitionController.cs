@@ -26,6 +26,13 @@ namespace CompetitionProgram3.Controllers
             return View(model);
         }
 
+        public IActionResult Detail(int id)
+        {
+            Competition competition = _dal.GetCompetition(id);
+
+            return View(competition);
+        }
+
         // GET review/new
         /// <summary>
         /// Represents an empty new copmetitor action.

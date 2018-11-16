@@ -55,7 +55,7 @@ namespace CompetitionProgram3.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult NewCompetitor(Competitors newCompetitor)
+        public IActionResult NewCompetitor(Competitors newCompetitor, int id)
         {
             Competitors competitor = new Competitors();
             competitor.FirstName = newCompetitor.FirstName;
@@ -69,7 +69,7 @@ namespace CompetitionProgram3.Controllers
             competitor.RegistrationDate = DateTime.Now;
             competitor.Id = newCompetitor.Id;
             // Save the Review
-            _dal.SaveCompetitor(competitor);
+            _dal.SaveCompetitor(competitor, id);
 
             // Redirect the user to Review/Index Action
             return RedirectToAction(nameof(Index));

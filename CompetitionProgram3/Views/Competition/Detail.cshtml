@@ -1,0 +1,31 @@
+﻿@model Competition
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h2>@Model.Name Details</h2>
+
+
+<section>
+
+
+    <div>
+        <p>@Model.StreetAddress</p>
+        <p>@Model.City</p>
+    </div>
+
+    <form asp-action="GetCompetitors" asp-controller="Competitor" method="get">
+        <input type="hidden" asp-for="@Model.Id" />
+        <div>
+            <button type="submit">View Registered Competitors</button>
+        </div>
+    </form>
+
+    <form asp-action="NewCompetitor" asp-controller="Competitor" method="get">
+        <input type="hidden" asp-for="@Model.Id" />
+        <div>
+            <button type="submit">Register To Compete</button>
+        </div>
+    </form>
+
+</section>

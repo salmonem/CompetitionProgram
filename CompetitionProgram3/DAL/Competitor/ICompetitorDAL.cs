@@ -16,6 +16,6 @@ namespace CompetitionProgram3.DAL
         /// </summary>
         /// <param name="newReview"></param>
         /// <returns></returns>
-        int SaveCompetitor(Competitors newCompetitor);
+        int SaveCompetitor(Competitors newCompetitor, int id);
     }
 }

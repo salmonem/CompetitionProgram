@@ -29,9 +29,21 @@ GO
 ALTER DATABASE CompetitionProgram SET MULTI_USER
 GO
 
-
+--------------------------------------------------------------
+/*join all 3 tables
 select * from competitions_competitors cc
 JOIN competitions a
 on a.competition_id = cc.competition_id
 join competitors b
 on b.competitor_id = cc.competitor_id
+--------------------------------------------------------
+/*potential competitor registration -new*/
+
+                    string sql = "BEGIN " +
+                                 "INSERT INTO competitors VALUES (@first_name,@last_name,@team_name," +
+                                 "@birth_date,@gender, @weight,@belt_rank,@nogi_rank,@register_date) " +
+                                 "END " +
+                                 "BEGIN " +
+                                 "INSERT INTO competitions_competitors (competition_id,competitor_id) " +
+                                 "VALUES(@competitionid, (SELECT competitor_id FROM competitors c WHERE c.first_name = '@first_name')) " +
+                                 "END;";
