@@ -73,6 +73,7 @@ namespace CompetitionProgram3.Controllers
 
             // Redirect the user to Review/Index Action
             return RedirectToAction(nameof(Index));
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
