@@ -7,6 +7,6 @@ namespace CompetitionProgram3.Models
 {
     public class DisplayCompetitorsViewModel
     {
-        public IList<Competitors> Competitors { get; set; }
+        public Dictionary<(string, string, string, string), List<(string, string, string)>> Competitors { get; set; }
     }
 }

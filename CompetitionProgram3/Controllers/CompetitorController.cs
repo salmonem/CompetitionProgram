@@ -15,22 +15,18 @@ namespace CompetitionProgram3.Controllers
         {
             _dal = competitorDal;
         }
-        public IActionResult Index(DisplayCompetitorsViewModel model, int id)
+        public IActionResult Index( int id)
         {
-            IList<Competitors> competitors = _dal.GetCompetitors(id);
-
-            model.Competitors = competitors;
-
-            return View(model);
+            Dictionary<(string, string, string, string), (string, string, string)> competitors = _dal.GetCompetitors(id);
+            
+            return View(competitors);
         }
 
-        public IActionResult GetCompetitors(DisplayCompetitorsViewModel model, int id)
+        public IActionResult GetCompetitors(int id)
         {
-            IList<Competitors> competitors = _dal.GetCompetitors(id);
+            Dictionary<(string, string, string, string), (string, string, string)> competitors = _dal.GetCompetitors(id);
 
-            model.Competitors = competitors;
-
-            return View(model);
+            return View();
         }
 
         [HttpGet]
@@ -58,8 +54,6 @@ namespace CompetitionProgram3.Controllers
             competitor.CompetitionId = newCompetitor.CompetitionId;
 
             _dal.SaveCompetitor(competitor);
-
-            //_dal.JoinCompetitionCompetition(competitor);
 
             return RedirectToAction(nameof(Index));
         }

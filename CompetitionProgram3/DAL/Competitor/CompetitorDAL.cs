@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
 
 namespace CompetitionProgram3.DAL
 {
@@ -15,9 +14,9 @@ namespace CompetitionProgram3.DAL
             this.connectionString = connectionString;
         }
 
-        public IList<Competitors> GetCompetitors(int id)
+        public Dictionary<(string, string, string, string), (string, string, string)> GetCompetitors(int id)
         {
-            List<Competitors> output = new List<Competitors>();
+        Dictionary<(string, string, string, string),(string, string, string)> division = new Dictionary<(string, string, string, string), (string, string, string)>();
 
             try
             {
@@ -50,7 +49,7 @@ namespace CompetitionProgram3.DAL
                             NogiRank = Convert.ToString(reader["nogi_rank"])
                         };
 
-                        output.Add(competitor);
+                        division.Add((competitor.Gender,competitor.Weight,competitor.BeltRank,competitor.NogiRank),(competitor.FirstName,competitor.LastName,competitor.TeamName));
                     }
                 }
             }
@@ -59,7 +58,7 @@ namespace CompetitionProgram3.DAL
                 throw;
             }
 
-            return output;
+            return division;
         }
         public int SaveCompetitor(Competitors newCompetitor)
         {
@@ -87,7 +86,7 @@ namespace CompetitionProgram3.DAL
                         int modified = (int)cmd.ExecuteScalar();
 
                         using (SqlCommand cmd1 = new SqlCommand("INSERT INTO competitions_competitors VALUES" +
-                                     "(@competition_id,@competitor_id)", conn))
+                                                                "(@competition_id,@competitor_id)", conn))
                         {
                             cmd1.Parameters.AddWithValue("@competitor_id", modified);
                             cmd1.Parameters.AddWithValue("@competition_id", newCompetitor.CompetitionId);

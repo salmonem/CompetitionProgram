@@ -5,7 +5,7 @@ namespace CompetitionProgram3.DAL
 {
     public interface ICompetitorDAL
     {
-        IList<Competitors> GetCompetitors(int id);
+        Dictionary<(string,string,string,string),(string,string,string)> GetCompetitors(int id);
 
         int SaveCompetitor(Competitors newCompetitor);
 

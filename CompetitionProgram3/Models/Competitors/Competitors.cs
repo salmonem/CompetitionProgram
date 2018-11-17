@@ -23,6 +23,8 @@ namespace CompetitionProgram3.Models
         public DateTime RegistrationDate { get; set; }
         public int CompetitionId { get; set; }
 
+        public Dictionary<(string, string, string, string), (string, string, string)> CompetitorDictionary = new Dictionary<(string, string, string, string), (string, string, string)>();
+
         public static List<SelectListItem> GenderChoice = new List<SelectListItem>()
         {
             new SelectListItem() { Text = "Male", Value = "Male" },
