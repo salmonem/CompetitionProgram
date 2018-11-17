@@ -17,45 +17,33 @@ namespace CompetitionProgram3.Controllers
         }
         public IActionResult Index(DisplayCompetitorsViewModel model, int id)
         {
-            // Get all of the competitors
             IList<Competitors> competitors = _dal.GetCompetitors(id);
 
             model.Competitors = competitors;
-            // Return the Index view
+
             return View(model);
         }
 
         public IActionResult GetCompetitors(DisplayCompetitorsViewModel model, int id)
         {
-            // Get all of the competitors
             IList<Competitors> competitors = _dal.GetCompetitors(id);
 
             model.Competitors = competitors;
-            // Return the Index view
+
             return View(model);
         }
-
-        // GET review/new
-        /// <summary>
-        /// Represents an empty new copmetitor action.
-        /// </summary>
-        /// <returns></returns>
 
         [HttpGet]
         public IActionResult NewCompetitor()
         {
-            // Return the empty view
-            return View();
+            Competitors competitor = new Competitors();
+
+            return View(competitor);
         }
 
-        /// <summary>
-        /// Represents a save review action.
-        /// </summary>
-        /// <param name="review"></param>
-        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult NewCompetitor(Competitors newCompetitor, int id)
+        public IActionResult NewCompetitor(Competitors newCompetitor)
         {
             Competitors competitor = new Competitors();
             competitor.FirstName = newCompetitor.FirstName;
@@ -67,13 +55,13 @@ namespace CompetitionProgram3.Controllers
             competitor.BeltRank = newCompetitor.BeltRank;
             competitor.NogiRank = newCompetitor.NogiRank;
             competitor.RegistrationDate = DateTime.Now;
-            competitor.Id = newCompetitor.Id;
-            // Save the Review
-            _dal.SaveCompetitor(competitor, id);
+            competitor.CompetitionId = newCompetitor.CompetitionId;
 
-            // Redirect the user to Review/Index Action
+            _dal.SaveCompetitor(competitor);
+
+            //_dal.JoinCompetitionCompetition(competitor);
+
             return RedirectToAction(nameof(Index));
-
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

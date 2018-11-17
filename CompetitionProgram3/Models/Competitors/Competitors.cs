@@ -8,7 +8,7 @@ namespace CompetitionProgram3.Models
     public class Competitors
     {
         [Key]
-        public int Id { get; set; }
+        public int CompetitorId { get; set; }
         public string Name { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -21,6 +21,7 @@ namespace CompetitionProgram3.Models
         public string BeltRank { get; set; }
         public string NogiRank { get; set; }
         public DateTime RegistrationDate { get; set; }
+        public int CompetitionId { get; set; }
 
         public static List<SelectListItem> GenderChoice = new List<SelectListItem>()
         {

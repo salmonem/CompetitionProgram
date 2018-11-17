@@ -1,13 +1,15 @@
 ﻿
 @model Competitors
-@{ 
+@{
     ViewData["Title"] = "New Competitor Registration";
+
+    int competitionId = Model.CompetitionId;
+
 }
 
 <h2>New Competitor Registration</h2>
 
 <form asp-controller="competitor" asp-action="NewCompetitor" method="post">
-
     <table>
         <tbody>
             <tr>
@@ -59,14 +61,14 @@
                 </td>
             </tr>
 
-            @*<tr>
+            <tr>
                 <td>
-                    <label asp-for="id = @Model.Id">Select A Competition:</label>
+                    <label asp-for="competitionId = @Model.CompetitionId">Select A Competition:</label>
                 </td>
                 <td>
-                    <select asp-for="id = @Model.Id" asp-items="Competitors.CompetitionChoice"></select>
+                    <select asp-for="competitionId = @Model.CompetitionId" asp-items="Competitors.CompetitionChoice"></select>
                 </td>
-            </tr>*@
+            </tr>
             <tr>
                 <td><input type="submit" value="Register" /></td>
             </tr>
