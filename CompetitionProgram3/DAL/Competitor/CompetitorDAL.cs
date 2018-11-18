@@ -14,10 +14,11 @@ namespace CompetitionProgram3.DAL
             this.connectionString = connectionString;
         }
 
-        public Dictionary<(string, string, string, string), (string, string, string)> GetCompetitors(int id)
+        public Dictionary<(string, string, string, string), List<string[]>> GetCompetitors(int id)
         {
-        Dictionary<(string, string, string, string),(string, string, string)> division = new Dictionary<(string, string, string, string), (string, string, string)>();
 
+        Dictionary<(string, string, string, string),List<string[]>> division = new Dictionary<(string, string, string, string), List<string[]>>();
+        
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -49,7 +50,31 @@ namespace CompetitionProgram3.DAL
                             NogiRank = Convert.ToString(reader["nogi_rank"])
                         };
 
-                        division.Add((competitor.Gender,competitor.Weight,competitor.BeltRank,competitor.NogiRank),(competitor.FirstName,competitor.LastName,competitor.TeamName));
+                        (string Gender, string Weight, string BeltRank, string NogiRank) keyValue = (competitor.Gender, competitor.Weight, competitor.BeltRank, competitor.NogiRank);
+
+                        // TODO: extract field1, field2, field3
+                        if (division.ContainsKey(keyValue))
+                        {
+                            // Add the values to the existing list
+                            division[keyValue].Add(new string[] { competitor.FirstName, competitor.LastName, competitor.TeamName });
+                        }
+                        else
+                        {
+                            //Create a new list and set the initial value
+                            division[keyValue] = new List<string[]> { new string[] { competitor.FirstName, competitor.LastName, competitor.TeamName } };
+                        }
+                        // TODO: extract field1, field2, field3
+                        //if (division.ContainsKey(keyValue))
+                        //{
+                        //    // Add the values to the existing list
+                        //    division[keyValue].Add(valuePair);
+                        //}
+                        //else
+                        //{
+                        //    //Create a new list and set the initial value
+                        //    division[keyValue] = valuePair;
+                        //}
+                        //division.Add((competitor.Gender,competitor.Weight,competitor.BeltRank,competitor.NogiRank),List<(competitor.FirstName,competitor.LastName,competitor.TeamName)>);
                     }
                 }
             }

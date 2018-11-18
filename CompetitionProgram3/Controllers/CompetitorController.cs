@@ -15,18 +15,20 @@ namespace CompetitionProgram3.Controllers
         {
             _dal = competitorDal;
         }
-        public IActionResult Index( int id)
+        public IActionResult Index(int id)
         {
-            Dictionary<(string, string, string, string), (string, string, string)> competitors = _dal.GetCompetitors(id);
-            
+            Dictionary<(string, string, string, string), List<string[]>> competitors = _dal.GetCompetitors(id);
+
             return View(competitors);
         }
 
-        public IActionResult GetCompetitors(int id)
+        public IActionResult GetCompetitors(Competitors model, int id)
         {
-            Dictionary<(string, string, string, string), (string, string, string)> competitors = _dal.GetCompetitors(id);
+            Dictionary<(string, string, string, string), List<string[]>> competitors = _dal.GetCompetitors(id);
 
-            return View();
+            model.CompetitorDictionary = competitors;
+
+            return View(model);
         }
 
         [HttpGet]

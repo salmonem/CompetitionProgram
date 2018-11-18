@@ -18,23 +18,12 @@
     </thead>
     <tbody>
         @{
-            foreach (KeyValuePair<(string, string, string, string), (string, string, string)> kvp in Model.CompetitorDictionary)
+            foreach (KeyValuePair<(string, string, string, string), List<string[]>> kvp in Model.CompetitorDictionary)
             {
-                <p>@(kvp.Key)</p>
-                <p>@(kvp.Value)</p>
+                <p><strong>@(kvp.Key)</strong></p>
+                <tr>@Html.DisplayFor(value => kvp.Value)</tr>
             }
         }
-        @*@foreach (var competitor in Model.Competitors)
-            {
-                <tr>
-                    <td>@competitor.FirstName @competitor.LastName</td>
-                    <td>@competitor.TeamName</td>
-                    <td>@competitor.Gender</td>
-                    <td>@competitor.Weight</td>
-                    <td>@competitor.BeltRank</td>
-                    <td>@competitor.NogiRank</td>
-                </tr>
-            }*@
     </tbody>
 </table>
 <br />

@@ -18,7 +18,7 @@
     </thead>
     <tbody>
         @{
-            foreach (KeyValuePair<(string, string, string, string), (string, string, string)> kvp in Model.CompetitorDictionary)
+            foreach (KeyValuePair<(string, string, string, string), List<string[]>> kvp in Model.CompetitorDictionary)
             {
                 <p>@(kvp.Key)</p>
                 <p>@(kvp.Value)</p>
