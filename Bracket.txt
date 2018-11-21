@@ -81,7 +81,7 @@ As an official, I need to be able to create a competition
 
 As a competitor, I need to be able to register for a competition. Registration information includes name, team, gender, birthdate, weight, belt rank, nogi rank, etc.
 
-**As an official, I need to be able to see lists of registered competitors. The list needs to be able to divide the list by name, team, gender, birthdate, weight, belt rank, nogi rank, etc.
+As an official, I need to be able to see lists of registered competitors. The list needs to be able to divide the list by name, team, gender, birthdate, weight, belt rank, nogi rank, etc.
 
 **As an official, I need to see a list of registrations that shows competitors that have lost or are withdrawn as greyed-out.
 

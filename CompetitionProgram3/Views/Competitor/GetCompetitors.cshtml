@@ -6,25 +6,24 @@
 <h2>Registered Competitors</h2>
 
 <table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Team</th>
-            <th>Gender</th>
-            <th>Weight Class</th>
-            <th>Belt Rank</th>
-            <th>NoGi Rank</th>
-        </tr>
-    </thead>
+    @*<thead>
+            <tr>
+                <th>Name</th>
+                <th>Team</th>
+                <th>Gender</th>
+                <th>Weight Class</th>
+                <th>Belt Rank</th>
+                <th>NoGi Rank</th>
+            </tr>
+        </thead>*@
     <tbody>
         @{
             foreach (KeyValuePair<(string, string, string, string), List<string[]>> kvp in Model.CompetitorDictionary)
             {
-                <p><strong>@(kvp.Key)</strong></p>
-                <tr>@Html.DisplayFor(value => kvp.Value)</tr>
+                <strong>@kvp.Key</strong>
+                @Html.DisplayFor(value => kvp.Value)
             }
         }
     </tbody>
 </table>
 <br />
-@*<a asp-controller="competitor" asp-action="NewCompetitor" method="get">Register To Compete</a>*@

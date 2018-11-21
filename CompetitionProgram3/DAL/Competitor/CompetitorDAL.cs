@@ -52,29 +52,14 @@ namespace CompetitionProgram3.DAL
 
                         (string Gender, string Weight, string BeltRank, string NogiRank) keyValue = (competitor.Gender, competitor.Weight, competitor.BeltRank, competitor.NogiRank);
 
-                        // TODO: extract field1, field2, field3
                         if (division.ContainsKey(keyValue))
                         {
-                            // Add the values to the existing list
                             division[keyValue].Add(new string[] { competitor.FirstName, competitor.LastName, competitor.TeamName });
                         }
                         else
                         {
-                            //Create a new list and set the initial value
                             division[keyValue] = new List<string[]> { new string[] { competitor.FirstName, competitor.LastName, competitor.TeamName } };
                         }
-                        // TODO: extract field1, field2, field3
-                        //if (division.ContainsKey(keyValue))
-                        //{
-                        //    // Add the values to the existing list
-                        //    division[keyValue].Add(valuePair);
-                        //}
-                        //else
-                        //{
-                        //    //Create a new list and set the initial value
-                        //    division[keyValue] = valuePair;
-                        //}
-                        //division.Add((competitor.Gender,competitor.Weight,competitor.BeltRank,competitor.NogiRank),List<(competitor.FirstName,competitor.LastName,competitor.TeamName)>);
                     }
                 }
             }
