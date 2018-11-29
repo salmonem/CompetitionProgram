@@ -1,2 +1,1 @@
 # CompetitionProgram
-# CompetitionProgram
